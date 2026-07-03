@@ -1,15 +1,16 @@
 package main
 
 import (
-	"github.com/rs/zerolog"
 	"os"
-	"sid/lazy"
-	"sid/sms"
-	"sid/sms/twilio"
+	"sid"
+	"sid/demo/sms"
+	"sid/demo/sms/twilio"
+
+	"github.com/rs/zerolog"
 )
 
 type Service struct {
-	smsProvider *lazy.Lazy[sms.ServiceSMS]
+	smsProvider *sid.Lazy[sms.ServiceSMS]
 }
 
 func (s *Service) handleRandomRequest() error {
@@ -21,7 +22,7 @@ func (s *Service) handleRandomRequest() error {
 func main() {
 	logger := zerolog.New(os.Stdout)
 
-	lazyService := lazy.Of(func() sms.ServiceSMS {
+	lazyService := sid.Of(func() sms.ServiceSMS {
 		return twilio.New(&logger)
 	})
 

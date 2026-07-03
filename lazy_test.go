@@ -1,4 +1,4 @@
-package lazy
+package sid
 
 import (
 	"sync"
